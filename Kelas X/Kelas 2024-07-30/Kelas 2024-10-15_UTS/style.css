@@ -1,0 +1,458 @@
+body {
+    margin: 0;
+    /* overflow-x: hidden; */
+}
+.imgsq {
+
+    transition: transform 0.3s;
+
+}
+
+.imgsq:hover {
+    transform: scale(0.9);
+}
+
+.lingkaranbutton {
+    background-color: rgb(73, 92, 188);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.lingkaranbutton:hover {
+    background-color: rgb(60, 78, 166);
+}
+
+.fombutton {
+    background-color: rgb(53, 53, 171);
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    position: relative;
+    left: 560px;
+    bottom: 450px;
+}
+.fombutton:hover {
+    background-color: rgb(42, 42, 150);
+}
+
+.dnbutton {
+    background-color: rgb(29, 85, 170);
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.dnbutton:hover {
+    background-color: rgb(24, 75, 152);
+}
+
+@media (max-width: 600px) {
+
+    .body {
+        margin: 0px;
+    }
+
+    .fombutton {
+        position: relative;
+        left: 170px;
+        bottom: 450px;
+    }
+
+    .baris2 h3 {
+        position: relative;
+        right: 400px;
+    }
+
+    .baris2 p {
+        position: relative;
+        right: 400px;
+    }
+
+    .wwo {
+        position: relative;
+        left: 180px;
+        bottom: 150px;
+    }
+
+    .baris3 {
+        background-color: rgb(29, 85, 170);
+        height: 700px;
+        width: 1300px;
+    }
+
+    .baris3 p {
+        position: relative;
+        top: 30px;
+        left: 220px;
+    }
+
+    .baris3 h2 {
+        position: relative;
+        top: 5px;
+        left: 100px;
+    }
+
+    .lingkaran {
+        justify-content: space-around;
+        position: relative;
+        left: 20px;
+        bottom: 550px;
+    }
+
+    .lingkaran1 {
+        margin-bottom: 20px;
+    }
+
+    .lingkaran2 {
+        margin-bottom: 20px;
+    }
+
+    .lingkaran3 {
+        margin-bottom: 20px;
+    }
+
+    .lingkaran4 {
+        margin-bottom: 20px;
+    }
+    
+    .kesatu {
+        color: rgb(0, 0, 0);
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        font-size: 20px;
+        position: relative;
+        left: 170px;
+        bottom: 1020px;
+    }
+    
+    .kedua {
+        color: rgb(0, 0, 0);
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        font-size: 20px;
+        position: relative;
+        left: 170px;
+        bottom: 950px;
+    }
+    
+    .ketiga {
+        color: rgb(0, 0, 0);
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        font-size: 20px;
+        position: relative;
+        left: 170px;
+        bottom: 870px;
+    }
+    
+    .keempat {
+        color: rgb(0, 0, 0);
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        font-size: 20px;
+        position: relative;
+        left: 170px;
+        bottom: 790px;
+    }
+
+    .tulisanrangkuman {
+        margin-left: -50px;
+        margin-top: 70px;
+    }
+
+    .tulisan1 {
+        font-size: 12px;
+        margin-bottom: 110px;
+    }
+
+    .tulisan2 {
+        font-size: 12px;
+        margin-bottom: 100px;
+    }
+
+    .tulisan3 {
+        font-size: 12px;
+        margin-bottom: 100px;
+    }
+
+    .tulisan4 {
+        font-size: 12px;
+        position: relative;
+        top: 20px;
+    }
+
+    .gambar2 h1 {
+        font-size: 25px;
+    }
+
+    .gambar2 h2 {
+        font-size: 25px;
+    }
+
+    .dnbutton {
+        position: relative;
+        left: 170px;
+        bottom: 450px;
+    }
+
+    .portofolio p {
+        position: relative;
+        left: 200px;
+        bottom: 100px;
+    }
+
+    .portofolio h3 {
+        position: relative;
+        left: 100px;
+        bottom: 120px;
+    }
+
+    .imgsq1 {
+        width: 500px;
+        height: 300px;
+        position: relative;
+        bottom: 100px;
+    }
+
+    .imgsq2 {
+        width: 500px;
+        height: 300px;
+        position: relative;
+        bottom: 232px;
+    }
+    
+    .imgsq3 {
+        width: 500px;
+        height: 300px;
+        position: relative;
+        bottom: 370px;
+        left: 0px;
+    }
+
+    .imgsq4 {
+        width: 500px;
+        height: 300px;
+        position: relative;
+        bottom: 502px;
+    }
+
+    .baris6 h2 {
+        justify-content: center;
+        position: relative;
+        top: 20px;
+        left: 50px;
+    }
+
+    .wbutton {
+        position: relative;
+        top: 50px;
+    }
+
+    .bbutton {
+        position: relative;
+        top: 50px;
+    }
+
+    .st {
+        position: absolute;
+    }
+
+    .hidden-text {
+        display: none;
+    }
+
+    .gambarinline2 p {
+        visibility: hidden;
+    }
+}
+
+.baris2 h3 {
+    text-align: center;
+}
+
+.baris2 p {
+    text-align: center;
+}
+
+.baris2 button {
+    position: relative;
+    left: 580px;
+    bottom: 150px;
+}
+
+.baris3 {
+    height: 580px;
+}
+
+.baris3 p {
+    text-align: center;
+    position: relative;
+    top: 55px;
+}
+
+.baris3 h2 {
+    text-align: center;
+    padding-top: 20px;
+}
+
+.lingkaran {
+    display: flex;
+    position: relative;
+    bottom: 400px;
+    left: 200px;
+    gap: 150px;
+}
+
+.kesatu {
+    color: white;
+    font-size: 22px;
+    position: relative;
+    left: 200px;
+    bottom: 390px;
+}
+
+.kedua {
+    color: white;
+    font-size: 22px;
+    position: relative;
+    left: 450px;
+    bottom: 430px;
+}
+
+.ketiga {
+    color: white;
+    font-size: 22px;
+    position: relative;
+    left: 710px;
+    bottom: 480px;
+}
+
+.keempat {
+    color: white;
+    font-size: 22px;
+    position: relative;
+    left: 965px;
+    bottom: 530px;
+}
+
+.tulisanrangkuman {
+    display: flex;
+    margin-top: 180px;
+    padding-left: 150px;
+    gap: 55px;
+}
+
+.tulisan1 {
+    font-size: 12px;
+}
+
+.tulisan2 {
+    font-size: 12px;
+}
+
+.tulisan3 {
+    font-size: 12px;
+}
+
+.tulisan4 {
+    font-size: 12px;
+}
+
+.gambar4 {
+    margin-top: -320px;
+}
+
+.gambar4 button {
+    margin-left: 555px;
+    position: relative;
+    bottom: 400px;
+}
+
+.portofolio p {
+    margin-top: -100px;
+    margin-left: 595px;
+}
+
+.portofolio h3 {
+    margin-left: 500px;
+}
+
+.gambarinline1 {
+    display: flex;
+    margin-left: 120px;
+}
+
+.gambarinline1 {
+    height: 350px;
+    width: 350px;
+}
+
+.gambarinline2 {
+    display: flex;
+    margin-left: 120px;
+}
+
+.gambarinline2 {
+    height: 350px;
+    width: 350px;
+}
+
+.portofolio1tulisan {
+    position: relative;
+    top: 320px;
+    right: 1580px;
+}
+
+.portofolio1tulisan p {
+    color: white;
+    white-space: nowrap;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.portofolio2tulisan {
+    position: relative;
+    top: 320px;
+    right: 2040px;
+}
+
+.portofolio2tulisan p {
+    color: white;
+    white-space: nowrap;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+
+.portofolio3tulisan {
+    position: relative;
+    top: 320px;
+    right: 1580px;
+}
+
+.portofolio3tulisan p {
+    color: white;
+    white-space: nowrap;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+
+.portofolio4tulisan {
+    position: relative;
+    top: 320px;
+    right: 2100px;
+}
+
+.portofolio4tulisan p {
+    color: white;
+    white-space: nowrap;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.baris6 h2 {
+    padding-top: 80px;
+    padding-left: 350px;
+}
+
+.pembungkusbutton {
+    padding-top: 20px;
+    padding-left: 400px;
+}
