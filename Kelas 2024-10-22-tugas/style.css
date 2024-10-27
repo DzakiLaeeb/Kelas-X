@@ -1,0 +1,89 @@
+body {
+    margin: 0;
+    background-color: rgb(24, 24, 24);
+    /* overflow-y: hidden; */
+}
+.container {
+    background-color: #af9c8d;
+    box-shadow: 10px 10px 5px rgb(49, 49, 49);
+    height: 520px;
+    width: 750px;
+    margin-left: 200px;
+    border-radius: 25px;
+    border: none;
+}
+
+.identitas {
+    background-color: #c9b09a;
+    box-shadow: 1px 1px 5px rgb(70, 69, 69);
+    transition: background-color 0.3s ease;
+    width: 400px;
+    height: 200px;
+    margin-top: -250px;
+    margin-left: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    border-radius: 25px;
+}
+
+.identitas:hover {
+    background-color: #c0a690;
+}
+
+
+.skill {
+    background-color: #c9b09a;
+    box-shadow: 1px 1px 5px rgb(70, 69, 69);
+    transition: background-color 0.3s ease;
+    width: 300px;
+    height: 150px;
+    margin-top: 15px;
+    margin-left: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    border-radius: 25px;
+}
+
+.skill:hover {
+    background-color: #c0a690;
+}
+
+
+.sekolah {
+    background-color: #c9b09a;
+    box-shadow: 1px 1px 5px rgb(70, 69, 69);
+    transition: background-color 0.3s ease;
+    width: 320px;
+    height: 150px;
+    margin-top: -150px;
+    margin-left: 370px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    border-radius: 25px;
+}
+
+.sekolah:hover {
+    background-color: #c0a690;
+}
+
+
+.hobi {
+    background-color: #c9b09a;
+    box-shadow: 1px 2px 5px rgb(70, 69, 69);
+    transition: background-color 0.3s ease;
+    width: 200px;
+    height: 200px;
+    margin-top: -368px;
+    margin-left: 480px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    border-radius: 25px;
+}
+
+.hobi:hover {
+    background-color: #c0a690;
+}
