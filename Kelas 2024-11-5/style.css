@@ -1,0 +1,62 @@
+.container {
+    width: 900px;
+    margin: auto;
+}
+
+.header {
+    display: flex;
+    height: 200px;
+}
+
+nav {
+    margin-top: 20px;
+}
+
+nav ul {
+    display: flex;
+    gap: 30px;
+}
+
+nav ul li {
+    list-style: none;
+}
+
+.sekolah {
+    margin-top: 10px;
+}
+
+.logo {
+    margin-right: 50px;
+}
+
+.logo img {
+    width: 120px;
+    height: 100px;
+}
+
+.home {
+    background-color: rgb(149, 222, 222);
+    border-radius: 20px;
+    height: 100px;
+}
+
+.jadwal {
+    background-color: antiquewhite;
+    margin-top: 10px;
+}
+
+.jurusan {
+    background-color: pink;
+}
+
+.kontak {
+    background-color: orange;
+}
+
+.sejarah {
+    background-color: blue;
+}
+
+.tentang {
+    background-color: red;
+}
