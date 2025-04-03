@@ -1,0 +1,98 @@
+/* Login Page Styles - Red and Yellow Theme */
+
+/* Card styling */
+.login-card {
+    border: none !important;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Card header */
+.login-header {
+    background-color: #d9534f !important;
+    color: white !important;
+    padding: 1.2rem 1.5rem !important;
+}
+
+.login-header h4 {
+    font-weight: 600;
+    margin-bottom: 0;
+}
+
+/* Card body */
+.login-body {
+    background-color: #fffaf0 !important;
+    padding: 2rem 1.5rem !important;
+}
+
+/* Form inputs */
+.login-input {
+    background-color: #fff9e6 !important;
+    border: none !important;
+    border-left: 4px solid #ffc107 !important;
+    border-radius: 4px !important;
+    padding: 0.8rem 1rem !important;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05) !important;
+    transition: all 0.3s ease;
+}
+
+.login-input:focus {
+    box-shadow: 0 2px 8px rgba(255, 193, 7, 0.3) !important;
+    outline: none !important;
+}
+
+/* Labels */
+.login-label {
+    color: #d9534f !important;
+    font-weight: 600 !important;
+    margin-bottom: 0.5rem !important;
+}
+
+/* Login button */
+.login-btn {
+    background-color: #d9534f !important;
+    border: none !important;
+    color: white !important;
+    padding: 0.8rem !important;
+    font-weight: 600 !important;
+    border-radius: 4px !important;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1) !important;
+    transition: all 0.3s ease;
+}
+
+.login-btn:hover {
+    background-color: #c9302c !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15) !important;
+    transform: translateY(-1px);
+}
+
+/* Register link section */
+.register-section {
+    margin-top: 1.5rem !important;
+    color: #d9534f !important;
+}
+
+.register-link {
+    color: #ffc107 !important;
+    font-weight: 600 !important;
+    text-decoration: none !important;
+    transition: all 0.3s ease;
+}
+
+.register-link:hover {
+    color: #e0a800 !important;
+    text-decoration: underline !important;
+}
+
+/* Alert styling */
+.login-alert {
+    background-color: #f8d7da !important;
+    border-color: #f5c6cb !important;
+    color: #721c24 !important;
+    border-radius: 4px !important;
+    padding: 0.75rem 1.25rem !important;
+    margin-bottom: 1.5rem !important;
+    border: none !important;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05) !important;
+}
