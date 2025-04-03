@@ -1,0 +1,114 @@
+@extends('layouts.app')
+
+@section('title', 'Toko Online')
+
+@section('content')
+    <div class="search-container">
+        <input type="text" class="search-input" placeholder="Cari produk...">
+        <button class="search-button">
+            <i class="fas fa-search"></i> Cari
+        </button>
+    </div>
+
+    <!-- Banner Section -->
+    <div id="bannerCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            @forelse($banners as $index => $banner)
+                <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="{{ $index }}" 
+                    class="{{ $index === 0 ? 'active' : '' }}" aria-current="{{ $index === 0 ? 'true' : 'false' }}" 
+                    aria-label="Slide {{ $index + 1 }}"></button>
+            @empty
+                <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="0" class="active" 
+                    aria-current="true" aria-label="Slide 1"></button>
+            @endforelse
+        </div>
+        
+        <div class="carousel-inner">
+            @forelse($banners as $index => $banner)
+                <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
+                    @if($banner->link)
+                        <a href="{{ $banner->link }}">
+                    @endif
+                    
+                    @if(Str::startsWith($banner->image_url, ['http://', 'https://']))
+                        <img src="{{ $banner->image_url }}" class="d-block w-100" alt="{{ $banner->title }}">
+                    @else
+                        <img src="{{ asset('storage/' . $banner->image_url) }}" class="d-block w-100" alt="{{ $banner->title }}">
+                    @endif
+                    
+                    @if($banner->link)
+                        </a>
+                    @endif
+                </div>
+            @empty
+                <div class="carousel-item active">
+                    <img src="{{ asset('assets/images/default-banner.jpg') }}" class="d-block w-100" alt="Default Banner">
+                </div>
+            @endforelse
+        </div>
+        
+        <button class="carousel-control-prev" type="button" data-bs-target="#bannerCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#bannerCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+    <div class="containerbanner">
+        <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.68/build/spline-viewer.js"></script>
+        <spline-viewer url="https://prod.spline.design/s-0XnhNcOL15Unah/scene.splinecode"></spline-viewer>
+    </div>
+
+    <!-- Featured Products Section -->
+    <div class="products-container">
+        <h2 class="section-title">Featured Products</h2>
+        <div class="products-grid">
+            @forelse($featuredProducts as $product)
+                <div class="product-card">
+                    <a href="{{ route('products.show', $product->id) }}">
+                        @if($product->image_url)
+                            @if(Str::startsWith($product->image_url, ['http://', 'https://']))
+                                <img src="{{ $product->image_url }}" class="product-image" alt="{{ $product->name }}">
+                            @else
+                                <img src="{{ asset('storage/' . $product->image_url) }}" class="product-image" alt="{{ $product->name }}">
+                            @endif
+                        @else
+                            <img src="{{ asset('assets/images/default-product.jpg') }}" class="product-image" alt="{{ $product->name }}">
+                        @endif
+                        <div class="product-info">
+                            <h3 class="product-title">{{ $product->name }}</h3>
+                            <p class="product-price">Rp {{ number_format($product->price, 0, ',', '.') }}</p>
+                        </div>
+                    </a>
+                </div>
+            @empty
+                <div class="no-products">
+                    <p>No products found.</p>
+                </div>
+            @endforelse
+        </div>
+    </div>
+@endsection
+
+@section('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize carousel with autoplay
+        const myCarousel = new bootstrap.Carousel(document.getElementById('bannerCarousel'), {
+            interval: 3000,  // Time in milliseconds between slides
+            ride: 'carousel',
+            pause: 'hover',  // Pause on mouse hover
+            wrap: true,      // Continuous loop
+            touch: true      // Enable touch swiping on mobile
+        });
+
+        // Optional: Add fade effect to transitions
+        document.querySelectorAll('.carousel-item').forEach(item => {
+            item.style.transition = 'transform .6s ease-in-out';
+        });
+    });
+</script>
+@endsection

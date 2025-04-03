@@ -1,0 +1,427 @@
+@extends('layouts.app')
+
+@section('title', 'Hubungi Kami')
+
+@push('styles')
+<style>
+    .contact-hero {
+        background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1596524430615-b46475ddff6e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80');
+        background-size: cover;
+        background-position: center;
+        color: white;
+        padding: 100px 0;
+        text-align: center;
+        margin-bottom: 50px;
+    }
+
+    .contact-hero-title {
+        font-size: 3rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+    }
+
+    .contact-hero-subtitle {
+        font-size: 1.2rem;
+        max-width: 700px;
+        margin: 0 auto;
+    }
+
+    .contact-section {
+        padding: 50px 0;
+    }
+
+    .contact-info-card {
+        background-color: var(--card-bg);
+        border-radius: 15px;
+        padding: 30px;
+        margin-bottom: 30px;
+        box-shadow: var(--shadow-md);
+        height: 100%;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .contact-info-card:hover {
+        transform: translateY(-10px);
+        box-shadow: var(--shadow-lg);
+    }
+
+    .contact-icon {
+        font-size: 2.5rem;
+        color: var(--primary-color);
+        margin-bottom: 20px;
+    }
+
+    .contact-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 15px;
+        color: var(--text-color);
+    }
+
+    .contact-text {
+        font-size: 1rem;
+        line-height: 1.6;
+        color: var(--text-secondary);
+    }
+
+    .contact-link {
+        color: var(--primary-color);
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .contact-link:hover {
+        color: var(--primary-hover);
+        text-decoration: underline;
+    }
+
+    .contact-form-card {
+        background-color: var(--card-bg);
+        border-radius: 15px;
+        padding: 30px;
+        box-shadow: var(--shadow-md);
+        margin-bottom: 30px;
+    }
+
+    .contact-form-title {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 30px;
+        color: var(--text-color);
+        text-align: center;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-label {
+        font-weight: 600;
+        color: var(--text-color);
+        margin-bottom: 8px;
+    }
+
+    .form-control {
+        border-radius: 10px;
+        padding: 12px 15px;
+        border: 1px solid var(--border-color);
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .form-control:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 0.2rem rgba(30, 136, 229, 0.25);
+    }
+
+    .form-text {
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+    }
+
+    .btn-submit {
+        background-color: var(--primary-color);
+        color: white;
+        padding: 12px 25px;
+        border-radius: 10px;
+        font-weight: 600;
+        border: none;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+        width: 100%;
+    }
+
+    .btn-submit:hover {
+        background-color: var(--primary-hover);
+        transform: translateY(-3px);
+    }
+
+    .map-container {
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: var(--shadow-md);
+        height: 400px;
+        margin-bottom: 50px;
+    }
+
+    .map-container iframe {
+        width: 100%;
+        height: 100%;
+        border: 0;
+    }
+
+    .faq-section {
+        padding: 50px 0;
+        background-color: var(--secondary-color);
+        margin-top: 50px;
+    }
+
+    .faq-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 50px;
+        text-align: center;
+        color: var(--text-color);
+    }
+
+    .accordion-item {
+        margin-bottom: 15px;
+        border-radius: 10px;
+        overflow: hidden;
+        border: 1px solid var(--border-color);
+    }
+
+    .accordion-header {
+        background-color: var(--card-bg);
+    }
+
+    .accordion-button {
+        padding: 20px;
+        font-weight: 600;
+        color: var(--text-color);
+        background-color: var(--card-bg);
+    }
+
+    .accordion-button:not(.collapsed) {
+        color: var(--primary-color);
+        background-color: var(--secondary-color);
+    }
+
+    .accordion-body {
+        padding: 20px;
+        background-color: var(--card-bg);
+        color: var(--text-secondary);
+    }
+
+    @media (max-width: 768px) {
+        .contact-hero-title {
+            font-size: 2.5rem;
+        }
+
+        .contact-form-title, .faq-title {
+            font-size: 2rem;
+        }
+
+        .map-container {
+            height: 300px;
+        }
+    }
+</style>
+@endpush
+
+@section('content')
+    <!-- Hero Section -->
+    <section class="contact-hero">
+        <div class="container">
+            <h1 class="contact-hero-title">Hubungi Kami</h1>
+            <p class="contact-hero-subtitle">Kami siap membantu Anda. Jangan ragu untuk menghubungi kami jika Anda memiliki pertanyaan atau membutuhkan bantuan.</p>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="contact-info-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <h3 class="contact-title">Alamat</h3>
+                        <p class="contact-text">
+                            Jl. Pahlawan No. 123<br>
+                            Jakarta Selatan, 12345<br>
+                            Indonesia
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="contact-info-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <h3 class="contact-title">Telepon</h3>
+                        <p class="contact-text">
+                            <a href="tel:+6281234567890" class="contact-link">+62 812 3456 7890</a><br>
+                            <a href="tel:+6281234567891" class="contact-link">+62 812 3456 7891</a>
+                        </p>
+                        <p class="contact-text">
+                            Senin - Jumat: 08.00 - 17.00<br>
+                            Sabtu: 09.00 - 15.00
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="contact-info-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <h3 class="contact-title">Email</h3>
+                        <p class="contact-text">
+                            <a href="mailto:info@tokoatk.com" class="contact-link">info@tokoatk.com</a><br>
+                            <a href="mailto:support@tokoatk.com" class="contact-link">support@tokoatk.com</a>
+                        </p>
+                        <p class="contact-text">
+                            Kami akan merespons email Anda dalam waktu 24 jam.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-5">
+                <div class="col-lg-6">
+                    <div class="contact-form-card">
+                        <h2 class="contact-form-title">Kirim Pesan</h2>
+                        <form action="#" method="POST">
+                            @csrf
+                            <div class="form-group">
+                                <label for="name" class="form-label">Nama</label>
+                                <input type="text" class="form-control" id="name" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="subject" class="form-label">Subjek</label>
+                                <input type="text" class="form-control" id="subject" name="subject" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="message" class="form-label">Pesan</label>
+                                <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+                            </div>
+                            <button type="submit" class="btn-submit">Kirim Pesan</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="map-container">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126920.29279605123!2d106.7588548!3d-6.2297465!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f3e945e34b9d%3A0x5371bf0fdad786a2!2sJakarta%20Selatan%2C%20Kota%20Jakarta%20Selatan%2C%20Daerah%20Khusus%20Ibukota%20Jakarta!5e0!3m2!1sid!2sid!4v1659614753359!5m2!1sid!2sid" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <h2 class="faq-title">Pertanyaan yang Sering Diajukan</h2>
+            <div class="accordion" id="faqAccordion">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            Bagaimana cara melakukan pemesanan?
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Anda dapat melakukan pemesanan melalui website kami dengan mengikuti langkah-langkah berikut: pilih produk yang ingin Anda beli, tambahkan ke keranjang, lalu selesaikan proses checkout dengan mengisi informasi pengiriman dan pembayaran.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            Berapa lama waktu pengiriman?
+                        </button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Waktu pengiriman tergantung pada lokasi Anda. Untuk wilayah Jakarta, biasanya membutuhkan waktu 1-2 hari kerja. Untuk wilayah lain di Jawa, membutuhkan waktu 2-3 hari kerja. Untuk wilayah luar Jawa, membutuhkan waktu 3-5 hari kerja.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingThree">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            Apakah ada biaya pengiriman?
+                        </button>
+                    </h2>
+                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Ya, biaya pengiriman dihitung berdasarkan berat paket dan lokasi pengiriman. Anda dapat melihat biaya pengiriman pada halaman checkout sebelum menyelesaikan pemesanan.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingFour">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                            Bagaimana cara melakukan pengembalian produk?
+                        </button>
+                    </h2>
+                    <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Jika Anda ingin melakukan pengembalian produk, silakan hubungi tim layanan pelanggan kami melalui email atau telepon dalam waktu 7 hari setelah menerima produk. Kami akan memberikan instruksi lebih lanjut mengenai proses pengembalian.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingFive">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                            Metode pembayaran apa saja yang tersedia?
+                        </button>
+                    </h2>
+                    <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Kami menerima berbagai metode pembayaran, termasuk transfer bank, kartu kredit/debit, e-wallet (GoPay, OVO, Dana), dan pembayaran melalui minimarket (Indomaret, Alfamart).
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+@endsection
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Form validation
+        const contactForm = document.querySelector('form');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Simple validation
+                let valid = true;
+                const name = document.getElementById('name');
+                const email = document.getElementById('email');
+                const subject = document.getElementById('subject');
+                const message = document.getElementById('message');
+                
+                if (!name.value.trim()) {
+                    valid = false;
+                    name.classList.add('is-invalid');
+                } else {
+                    name.classList.remove('is-invalid');
+                }
+                
+                if (!email.value.trim() || !email.value.includes('@')) {
+                    valid = false;
+                    email.classList.add('is-invalid');
+                } else {
+                    email.classList.remove('is-invalid');
+                }
+                
+                if (!subject.value.trim()) {
+                    valid = false;
+                    subject.classList.add('is-invalid');
+                } else {
+                    subject.classList.remove('is-invalid');
+                }
+                
+                if (!message.value.trim()) {
+                    valid = false;
+                    message.classList.add('is-invalid');
+                } else {
+                    message.classList.remove('is-invalid');
+                }
+                
+                if (valid) {
+                    // In a real application, you would submit the form here
+                    alert('Pesan Anda telah dikirim! Kami akan menghubungi Anda segera.');
+                    contactForm.reset();
+                }
+            });
+        }
+    });
+</script>
+@endpush

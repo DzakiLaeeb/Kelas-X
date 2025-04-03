@@ -1,0 +1,18 @@
+Saya akan membuat toko online yang terdiri dari 4 bagian yaitu header, bnner, produk, footer. Dimana isi dari header adalah menu, kolom pencarian, register, login. Isi dari banner adalah 2 kolom banner yaitu 1 banner statis dan satu banner dinamis. Isi dari produk adalah gambar, nama produk, dan harga. Footer yang berisi menu, pembayaran, media sosial, dan kontak. buatkan halaman htmlnya saja
+Saya akan membuat halaman admin yang dapat mengubah 3 gambar banner dengan kode 
+    <div class="containerbanner" style="gap: 25px">
+            
+        <section class="banner">
+            <div class="banner-slider">
+                <img src="images/4.jpg" alt="Banner 1">
+                <img src="images/5.png" alt="Banner 2">
+                <img src="images/6.jpeg" alt="Banner 3">
+            </div>
+        </section>
+        
+        <section class="banner2" style="margin-top: 33px; gap: 25px">
+                <img style="width: 455px; height: 143px; border-radius: 15px" src="images/4.jpg" alt="Banner 1">
+                <img style="width: 455px; height: 143px; border-radius: 15px" src="images/4.jpg" alt="Banner 1">
+        </section>
+
+    </div>, lalu dapat menambahkan barang yang dijual dengan fitur CRUD (mengedit gambar produk, nama produk, harga), dapat menerima daftar checkout dari pelanggan untuk melakukan pengiriman, buat dalam beberapa file sesuai dengan fungsinya, halaman admin page sebagai halaman home dari admin
