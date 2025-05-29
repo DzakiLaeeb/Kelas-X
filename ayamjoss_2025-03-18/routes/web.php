@@ -38,12 +38,11 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::middleware(['auth.pelanggan'])->group(function () {
     // Cart Routes
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
-    Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
     Route::post('/cart/update', [CartController::class, 'update'])->name('cart.update');
     Route::delete('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
     Route::post('/cart/clear', [CartController::class, 'clearCart'])->name('cart.clear');
     Route::get('/cart/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
-    
+
     // Order Routes
     Route::post('/order/store', [OrderController::class, 'store'])->name('order.store');
     Route::get('/order/success/{idorder}', [OrderController::class, 'success'])->name('order.success');
@@ -64,10 +63,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
 // Cart Routes - Public Access (No auth required)
 Route::controller(CartController::class)->group(function () {
     Route::get('/cart', 'index')->name('cart.index');
-    Route::post('/cart/add', 'addToCart')->name('cart.add');
+    Route::post('/cart/add', 'add')->name('cart.add');
     Route::post('/cart/update/{id}/{action}', 'updateQuantity')->name('cart.update');
     Route::delete('/cart/remove/{id}', 'removeFromCart')->name('cart.remove');
-    Route::delete('/cart/clear', 'clearCart')->name('cart.clear');
+    Route::post('/cart/clear', 'clearCart')->name('cart.clear');
 });
 
 // Cart Routes - Protected (Requires auth)
@@ -76,17 +75,8 @@ Route::controller(CartController::class)->middleware('auth')->group(function () 
     Route::post('/cart/process-checkout', 'processCheckout')->name('cart.process-checkout');
 });
 
-// Cart & Order Routes
-Route::group(['middleware' => ['web']], function () {
-    // Order routes
-    Route::post('/order/store', [OrderController::class, 'store'])->name('order.store');
-    
-    // Cart routes
-    Route::post('/cart/add/{id}', [CartController::class, 'addToCart'])->name('cart.add');
-    Route::post('/cart/update/{id}/{action}', [CartController::class, 'updateQuantity'])->name('cart.update');
-    Route::delete('/cart/remove/{id}', [CartController::class, 'removeFromCart'])->name('cart.remove');
-    Route::delete('/cart/clear', [CartController::class, 'clearCart'])->name('cart.clear');
-});
+// Order Routes
+Route::post('/order/store', [OrderController::class, 'store'])->name('order.store');
 
 Route::get('/test-db', function () {
     try {

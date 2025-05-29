@@ -4,7 +4,11 @@
 <div class="container py-4">
     <h2 class="mb-4 cart-title">Keranjang Belanja</h2>
 
-    @if(session()->has('cart') && count(session('cart')) > 0)
+    @php
+        $cart = session()->get('cart', []);
+        \Log::info('Cart in view:', ['cart' => $cart]);
+    @endphp
+    @if(!empty($cart))
         <div class="card shadow-sm cart-card">
             <div class="card-body">
                 <div class="table-responsive">
@@ -21,19 +25,19 @@
                         </thead>
                         <tbody>
                             @php $total = 0 @endphp
-                            @foreach(session('cart') as $id => $details)
+                            @foreach($cart as $id => $details)
                                 @php $total += $details['harga'] * $details['jumlah'] @endphp
                                 <tr data-id="{{ $id }}" class="cart-item">
                                     <td>{{ $details['nama'] }}</td>
                                     <td>
                                         @if(isset($details['gambar']))
-                                            <img src="{{ asset($details['gambar']) }}" 
-                                                 alt="{{ $details['nama'] }}" 
+                                            <img src="{{ asset($details['gambar']) }}"
+                                                 alt="{{ $details['nama'] }}"
                                                  class="cart-item-image"
                                                  onerror="this.src='https://placehold.co/400x300?text=No+Image'"
                                                  style="width: 50px; height: 50px; object-fit: cover;">
                                         @else
-                                            <img src="https://placehold.co/400x300?text=No+Image" 
+                                            <img src="https://placehold.co/400x300?text=No+Image"
                                                  alt="No Image Available"
                                                  class="cart-item-image"
                                                  style="width: 50px; height: 50px; object-fit: cover;">
@@ -42,12 +46,12 @@
                                     <td>Rp {{ number_format($details['harga'], 0, ',', '.') }}</td>
                                     <td>
                                         <div class="quantity-controls">
-                                            <button class="btn btn-sm btn-quantity decrease" 
+                                            <button class="btn btn-sm btn-quantity decrease"
                                                     onclick="updateCart('{{ $id }}', 'decrease')">
                                                 -
                                             </button>
                                             <span class="mx-2 quantity-value">{{ $details['jumlah'] }}</span>
-                                            <button class="btn btn-sm btn-quantity increase" 
+                                            <button class="btn btn-sm btn-quantity increase"
                                                     onclick="updateCart('{{ $id }}', 'increase')">
                                                 +
                                             </button>
@@ -148,12 +152,13 @@
 @push('scripts')
 <script>
 function updateCart(id, action) {
+    console.log('Updating cart:', id, action);
     // Add animation class before making the request
     const row = document.querySelector(`tr[data-id="${id}"]`);
     if (row) {
         row.classList.add('updating');
     }
-    
+
     fetch(`/cart/update/${id}/${action}`, {
         method: 'POST',
         headers: {
@@ -163,12 +168,14 @@ function updateCart(id, action) {
         }
     })
     .then(response => {
+        console.log('Update response status:', response.status);
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
         return response.json();
     })
     .then(data => {
+        console.log('Update response data:', data);
         if(data.success) {
             window.location.reload();
         } else {
@@ -186,12 +193,13 @@ function updateCart(id, action) {
 }
 
 function removeItem(id) {
+    console.log('Removing item:', id);
     if(confirm('Apakah Anda yakin ingin menghapus item ini?')) {
         const row = document.querySelector(`tr[data-id="${id}"]`);
         if (row) {
             row.classList.add('removing');
         }
-        
+
         setTimeout(() => {
             fetch(`/cart/remove/${id}`, {
                 method: 'DELETE',
@@ -202,12 +210,14 @@ function removeItem(id) {
                 }
             })
             .then(response => {
+                console.log('Remove response status:', response.status);
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
                 return response.json();
             })
             .then(data => {
+                console.log('Remove response data:', data);
                 if(data.success) {
                     window.location.reload();
                 } else {
@@ -216,7 +226,7 @@ function removeItem(id) {
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('Gagal menghapus item');
+                alert('Gagal menghapus item: ' + error.message);
                 if (row) {
                     row.classList.remove('removing');
                 }
@@ -226,15 +236,16 @@ function removeItem(id) {
 }
 
 function clearCart() {
+    console.log('Clearing cart');
     if(confirm('Apakah Anda yakin ingin mengosongkan keranjang?')) {
         const cartCard = document.querySelector('.cart-card');
         if (cartCard) {
             cartCard.classList.add('clearing');
         }
-        
+
         setTimeout(() => {
             fetch('/cart/clear', {
-                method: 'DELETE',
+                method: 'POST', // Ubah dari DELETE ke POST sesuai dengan route
                 headers: {
                     'X-CSRF-TOKEN': '{{ csrf_token() }}',
                     'Accept': 'application/json',
@@ -242,12 +253,14 @@ function clearCart() {
                 }
             })
             .then(response => {
+                console.log('Clear cart response status:', response.status);
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
                 return response.json();
             })
             .then(data => {
+                console.log('Clear cart response data:', data);
                 if(data.success) {
                     window.location.reload();
                 } else {
@@ -256,7 +269,7 @@ function clearCart() {
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('Gagal mengosongkan keranjang');
+                alert('Gagal mengosongkan keranjang: ' + error.message);
                 if (cartCard) {
                     cartCard.classList.remove('clearing');
                 }
@@ -718,26 +731,26 @@ body {
         width: 40px !important;
         height: 40px !important;
     }
-    
+
     .quantity-controls {
         flex-direction: column;
         height: auto;
     }
-    
+
     .quantity-value {
         margin: 5px 0;
     }
-    
+
     .cart-actions {
         flex-direction: column;
         gap: 15px;
     }
-    
+
     .action-buttons {
         display: flex;
         width: 100%;
     }
-    
+
     .action-buttons .btn {
         flex: 1;
     }

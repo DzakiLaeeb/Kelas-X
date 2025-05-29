@@ -14,10 +14,10 @@
     <div class="search-container mb-4">
         <form action="{{ route('menu.search') }}" method="GET" class="search-form">
             <div class="input-group">
-                <input type="text" 
-                       name="search" 
-                       class="form-control search-input" 
-                       placeholder="Cari menu..." 
+                <input type="text"
+                       name="search"
+                       class="form-control search-input"
+                       placeholder="Cari menu..."
                        value="{{ request('search') }}">
                 <button type="submit" class="btn btn-search">
                     <i class="fas fa-search"></i>
@@ -40,12 +40,12 @@
                     <div class="menu-card">
                         <div class="menu-image">
                             @if($menu->gambar)
-                                <img src="{{ $menu->gambar }}" 
+                                <img src="{{ $menu->gambar }}"
                                      alt="{{ $menu->nama }}"
                                      class="menu-image"
                                      onerror="this.src='https://placehold.co/400x300?text=No+Image'">
                             @else
-                                <img src="https://placehold.co/400x300?text=No+Image" 
+                                <img src="https://placehold.co/400x300?text=No+Image"
                                      alt="No Image Available"
                                      class="menu-image">
                             @endif
@@ -90,7 +90,7 @@
         <div class="col-12 text-center mb-4">
             <h2 class="menu-section-title">Paket Spesial</h2>
         </div>
-        
+
         <div class="col-md-6 mb-4">
             <div class="menu-card special">
                 <div class="menu-image">
@@ -111,7 +111,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="col-md-6 mb-4">
             <div class="menu-card special">
                 <div class="menu-image">
@@ -139,34 +139,34 @@
 
     // Get the flying cart element
     const flyingCart = document.getElementById('flyingCart');
-    
+
     // Clone the cart icon from the clicked button
     const cartButton = form.querySelector('.btn-add-cart');
     const cartIcon = cartButton.querySelector('i').cloneNode(true);
-    
+
     // Create a clone of the cart icon to animate
     const animatedIcon = document.createElement('div');
     animatedIcon.classList.add('animated-cart-icon');
     animatedIcon.appendChild(cartIcon);
-    
+
     // Position the animated icon at the button
     const buttonRect = cartButton.getBoundingClientRect();
     animatedIcon.style.position = 'fixed';
     animatedIcon.style.left = `${buttonRect.left}px`;
     animatedIcon.style.top = `${buttonRect.top}px`;
     animatedIcon.style.zIndex = '1000';
-    
+
     // Append to body for animation
     document.body.appendChild(animatedIcon);
-    
+
     // Animate the icon to the cart
     const cartRect = flyingCart.getBoundingClientRect();
     animatedIcon.animate([
-        { 
+        {
             transform: `translate(0, 0)`,
             opacity: 1
         },
-        { 
+        {
             transform: `translate(${cartRect.left - buttonRect.left}px, ${cartRect.top - buttonRect.top}px)`,
             opacity: 0.5
         }
@@ -177,7 +177,7 @@
 
     // Send AJAX request to add item to cart
     const formData = new FormData(form);
-    
+
     fetch('{{ route("cart.add") }}', {
         method: 'POST',
         body: formData,
@@ -207,7 +207,7 @@
 // For special package buttons without form
 function addToCart(packageType) {
     const flyingCart = document.getElementById('flyingCart');
-    
+
     // Prepare data for special packages
     const packageDetails = {
         'paket-keluarga': {
@@ -240,23 +240,23 @@ function addToCart(packageType) {
     const animatedIcon = document.createElement('div');
     animatedIcon.classList.add('animated-cart-icon');
     animatedIcon.innerHTML = '<i class="fas fa-shopping-cart"></i>';
-    
+
     const cartButton = event.target;
     const buttonRect = cartButton.getBoundingClientRect();
     animatedIcon.style.position = 'fixed';
     animatedIcon.style.left = `${buttonRect.left}px`;
     animatedIcon.style.top = `${buttonRect.top}px`;
     animatedIcon.style.zIndex = '1000';
-    
+
     document.body.appendChild(animatedIcon);
-    
+
     const cartRect = flyingCart.getBoundingClientRect();
     animatedIcon.animate([
-        { 
+        {
             transform: `translate(0, 0)`,
             opacity: 1
         },
-        { 
+        {
             transform: `translate(${cartRect.left - buttonRect.left}px, ${cartRect.top - buttonRect.top}px)`,
             opacity: 0.5
         }
@@ -293,25 +293,31 @@ function addToCart(packageType) {
 
 function addToCartAndRedirect(menuId) {
     const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-    
+
+    // Buat FormData untuk mengirim data
+    const formData = new FormData();
+    formData.append('id', menuId);
+    formData.append('_token', token);
+
+    console.log('Redirecting to cart with menuId:', menuId);
+
     fetch('/cart/add', {
         method: 'POST',
+        body: formData,
         headers: {
-            'Content-Type': 'application/json',
             'X-CSRF-TOKEN': token,
             'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-            id: menuId
-        })
+        }
     })
     .then(response => {
+        console.log('Response status:', response.status);
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
         return response.json();
     })
     .then(data => {
+        console.log('Response data:', data);
         if(data.success) {
             window.location.href = '/cart';
         } else {
@@ -320,7 +326,7 @@ function addToCartAndRedirect(menuId) {
     })
     .catch(error => {
         console.error('Error:', error);
-        alert('Gagal menambahkan ke keranjang');
+        alert('Gagal menambahkan ke keranjang: ' + error.message);
     });
 }
     </script>
@@ -357,7 +363,7 @@ function addToCartAndRedirect(menuId) {
     .menu-description {
         color: var(--text-secondary);
     }
-    
+
     .menu-title {
         color: var(--primary-red);
         font-weight: 700;
@@ -365,7 +371,7 @@ function addToCartAndRedirect(menuId) {
         position: relative;
         display: inline-block;
     }
-    
+
     .menu-title:after {
         content: "";
         position: absolute;
@@ -377,13 +383,13 @@ function addToCartAndRedirect(menuId) {
         transform: translateX(-50%);
         border-radius: 2px;
     }
-    
+
     .menu-subtitle {
         color: var(--dark-brown);
         font-size: 1.1rem;
         margin-top: 20px;
     }
-    
+
     .menu-section-title {
         color: var(--primary-red);
         font-weight: 600;
@@ -391,7 +397,7 @@ function addToCartAndRedirect(menuId) {
         position: relative;
         display: inline-block;
     }
-    
+
     .menu-section-title:after {
         content: "";
         position: absolute;
@@ -403,7 +409,7 @@ function addToCartAndRedirect(menuId) {
         transform: translateX(-50%);
         border-radius: 2px;
     }
-    
+
     .menu-card {
         background-color: var(--card-bg);
         border-radius: 12px;
@@ -412,33 +418,33 @@ function addToCartAndRedirect(menuId) {
         transition: all 0.3s ease;
         height: 100%;
     }
-    
+
     .menu-card:hover {
         transform: translateY(-5px);
         box-shadow: var(--card-shadow-hover);
     }
-    
+
     .menu-card.special {
         border: 2px solid var(--primary-yellow);
     }
-    
+
     .menu-image {
         position: relative;
         height: 200px;
         overflow: hidden;
     }
-    
+
     .menu-image img {
         width: 100%;
         height: 100%;
         object-fit: cover;
         transition: transform 0.5s ease;
     }
-    
+
     .menu-card:hover .menu-image img {
         transform: scale(1.1);
     }
-    
+
     .menu-badge {
         position: absolute;
         top: 15px;
@@ -451,17 +457,17 @@ function addToCartAndRedirect(menuId) {
         font-size: 0.8rem;
         box-shadow: var(--badge-shadow);
     }
-    
+
     .menu-badge.hot {
         background-color: var(--primary-red);
         color: white;
     }
-    
+
     .menu-badge.new {
         background-color: #4CAF50;
         color: white;
     }
-    
+
     .menu-badge.promo {
         background-color: #9C27B0;
         color: white;
@@ -471,37 +477,37 @@ function addToCartAndRedirect(menuId) {
     [data-bs-theme="dark"] .menu-badge {
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
     }
-    
+
     .menu-content {
         padding: 20px;
     }
-    
+
     .menu-item-title {
         color: var(--dark-brown);
         font-weight: 600;
         font-size: 1.3rem;
         margin-bottom: 10px;
     }
-    
+
     .menu-description {
         color: var(--text-secondary);
         font-size: 0.95rem;
         margin-bottom: 15px;
         min-height: 60px;
     }
-    
+
     .menu-price-action {
         display: flex;
         justify-content: space-between;
         align-items: center;
     }
-    
+
     .menu-price {
         font-weight: 700;
         color: var(--primary-red);
         font-size: 1.2rem;
     }
-    
+
     .btn-add-cart {
         background-color: var(--primary-yellow);
         color: var(--dark-brown);
@@ -512,7 +518,7 @@ function addToCartAndRedirect(menuId) {
         cursor: pointer;
         transition: all 0.3s ease;
     }
-    
+
     .btn-add-cart:hover {
         background-color: var(--primary-red);
         color: white;
@@ -528,12 +534,12 @@ function addToCartAndRedirect(menuId) {
         background-color: var(--primary-red);
         color: white;
     }
-    
+
     @media (max-width: 768px) {
         .menu-description {
             min-height: auto;
         }
-        
+
         .theme-toggle-container {
             position: relative;
             top: 0;
@@ -633,32 +639,32 @@ document.addEventListener('DOMContentLoaded', function() {
     buttons.forEach(button => {
         button.addEventListener('click', function(e) {
             e.preventDefault();
-            
+
             // Tambahkan class clicked untuk efek shake
             this.classList.add('clicked');
-            
+
             const buttonRect = this.getBoundingClientRect();
             const navCartRect = navCart.getBoundingClientRect();
-            
+
             // Set posisi awal dan ukuran yang lebih besar
             flyingCart.style.top = `${buttonRect.top}px`;
             flyingCart.style.left = `${buttonRect.left}px`;
             flyingCart.style.width = '60px';
             flyingCart.style.height = '60px';
-            
+
             // Aktifkan animasi dengan ukuran awal besar
             flyingCart.classList.add('active');
-            
+
             // Animasi ke navbar cart
             setTimeout(() => {
                 flyingCart.style.top = `${navCartRect.top}px`;
                 flyingCart.style.left = `${navCartRect.left}px`;
                 flyingCart.style.width = '30px';
                 flyingCart.style.height = '30px';
-                
+
                 navCart.classList.add('bounce');
             }, 100);
-            
+
             // Reset animasi setelah animasi selesai
             setTimeout(() => {
                 flyingCart.classList.remove('active');

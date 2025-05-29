@@ -8,7 +8,7 @@
         <p class="hero-subtitle">Renyah di Luar, Juicy di Dalam!</p>
         <div class="hero-buttons">
             <a href="{{ url('/menu') }}" class="btn-menu">Lihat Menu</a>
-            <a href="{{ url('/order') }}" class="btn-order">Pesan Sekarang</a>
+            <a href="{{ url('/menu') }}" class="btn-order">Pesan Sekarang</a>
         </div>
     </div>
     <div class="hero-image-container">
@@ -82,7 +82,7 @@
                                 <span>(4.5)</span>
                             </div>
                         </div>
-                        <a href="{{ url('/order') }}" class="btn-add-to-cart">Pesan</a>
+                        <a href="{{ url('/menu') }}" class="btn-add-to-cart">Pesan</a>
                     </div>
                 </div>
             </div>
@@ -106,7 +106,7 @@
                                 <span>(5.0)</span>
                             </div>
                         </div>
-                        <a href="{{ url('/order') }}" class="btn-add-to-cart">Pesan</a>
+                        <a href="{{ url('/menu') }}" class="btn-add-to-cart">Pesan</a>
                     </div>
                 </div>
             </div>
@@ -130,7 +130,7 @@
                                 <span>(4.0)</span>
                             </div>
                         </div>
-                        <a href="{{ url('/order') }}" class="btn-add-to-cart">Pesan</a>
+                        <a href="{{ url('/menu') }}" class="btn-add-to-cart">Pesan</a>
                     </div>
                 </div>
             </div>
