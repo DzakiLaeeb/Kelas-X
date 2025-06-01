@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Login Debug</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card shadow">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">
+                            <i class="bi bi-bug me-2"></i>
+                            Test Login API
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="testForm">
+                            <div class="mb-3">
+                                <label class="form-label">Username:</label>
+                                <input type="text" class="form-control" id="username" value="admin">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Password:</label>
+                                <input type="password" class="form-control" id="password" value="admin123">
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">
+                                <i class="bi bi-play-circle me-2"></i>Test Login
+                            </button>
+                        </form>
+                        
+                        <hr>
+                        
+                        <div class="d-grid gap-2">
+                            <a href="http://localhost:5173/login" target="_blank" class="btn btn-success">
+                                <i class="bi bi-react me-2"></i>Open React Login
+                            </a>
+                            <button class="btn btn-warning" onclick="clearStorage()">
+                                <i class="bi bi-trash me-2"></i>Clear Storage
+                            </button>
+                            <button class="btn btn-info" onclick="checkStorage()">
+                                <i class="bi bi-database me-2"></i>Check Storage
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6">
+                <div class="card shadow">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0">
+                            <i class="bi bi-terminal me-2"></i>
+                            Debug Output
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="output" style="height: 400px; overflow-y: auto; font-family: monospace; font-size: 12px; background: #f8f9fa; padding: 10px; border-radius: 5px;">
+                            Ready to test...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <i class="bi bi-list-check me-2"></i>
+                            Debug Checklist
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <h6>✅ Backend Check:</h6>
+                                <ul class="small">
+                                    <li>XAMPP running</li>
+                                    <li>Database connected</li>
+                                    <li>API responds</li>
+                                    <li>Demo users exist</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-4">
+                                <h6>✅ Frontend Check:</h6>
+                                <ul class="small">
+                                    <li>React dev server running</li>
+                                    <li>No console errors</li>
+                                    <li>Network requests working</li>
+                                    <li>State management working</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-4">
+                                <h6>✅ Browser Check:</h6>
+                                <ul class="small">
+                                    <li>No JavaScript errors</li>
+                                    <li>LocalStorage working</li>
+                                    <li>Network tab shows requests</li>
+                                    <li>Cache cleared</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const output = document.getElementById('output');
+        
+        function log(message, type = 'info') {
+            const timestamp = new Date().toLocaleTimeString();
+            const prefix = type === 'error' ? '❌' : type === 'success' ? '✅' : type === 'warning' ? '⚠️' : 'ℹ️';
+            output.textContent += `[${timestamp}] ${prefix} ${message}\n`;
+            output.scrollTop = output.scrollHeight;
+        }
+        
+        function clearLog() {
+            output.textContent = '';
+        }
+        
+        document.getElementById('testForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            clearLog();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            log(`🧪 Testing login with ${username}/${password}...`);
+            
+            try {
+                log('📡 Sending request to /api/login.php...');
+                
+                const response = await fetch('/api/login.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        username: username,
+                        password: password
+                    })
+                });
+                
+                log(`📊 Response status: ${response.status} ${response.statusText}`);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const data = await response.json();
+                log('📦 Response data:');
+                log(JSON.stringify(data, null, 2));
+                
+                if (data.success) {
+                    log('✅ API LOGIN SUCCESSFUL!', 'success');
+                    log(`👤 User: ${data.data.user.name}`, 'success');
+                    log(`🎭 Role: ${data.data.user.role}`, 'success');
+                    log(`🔑 Token: ${data.data.token.substring(0, 20)}...`, 'success');
+                    
+                    // Test localStorage
+                    log('💾 Testing localStorage...');
+                    localStorage.setItem('token', data.data.token);
+                    localStorage.setItem('user', JSON.stringify(data.data.user));
+                    log('✅ Data stored in localStorage', 'success');
+                    
+                    // Verify storage
+                    const storedToken = localStorage.getItem('token');
+                    const storedUser = localStorage.getItem('user');
+                    if (storedToken && storedUser) {
+                        log('✅ Data verified in localStorage', 'success');
+                    } else {
+                        log('❌ Failed to store in localStorage', 'error');
+                    }
+                    
+                    log('🎯 CONCLUSION: Backend API works perfectly!', 'success');
+                    log('🔧 If React login still fails, the problem is in frontend:', 'warning');
+                    log('1. Check browser console for React errors');
+                    log('2. Make sure React dev server is running');
+                    log('3. Clear browser cache and try again');
+                    
+                } else {
+                    log('❌ API LOGIN FAILED!', 'error');
+                    log(`💬 Error: ${data.message}`, 'error');
+                    log('🔧 Possible solutions:', 'warning');
+                    log('1. Check if demo users exist in database');
+                    log('2. Verify credentials are correct');
+                    log('3. Run database diagnosis');
+                }
+                
+            } catch (error) {
+                log('❌ REQUEST FAILED!', 'error');
+                log(`💬 Error: ${error.message}`, 'error');
+                log('🔧 Possible causes:', 'warning');
+                log('- XAMPP not running');
+                log('- Database connection failed');
+                log('- API file missing or has errors');
+                log('- Network connectivity issues');
+            }
+        });
+        
+        function clearStorage() {
+            localStorage.clear();
+            sessionStorage.clear();
+            log('🗑️ All storage cleared', 'warning');
+        }
+        
+        function checkStorage() {
+            clearLog();
+            log('🔍 Checking browser storage...');
+            
+            const token = localStorage.getItem('token');
+            const user = localStorage.getItem('user');
+            
+            if (token) {
+                log(`🔑 Token found: ${token.substring(0, 20)}...`, 'success');
+            } else {
+                log('❌ No token found', 'error');
+            }
+            
+            if (user) {
+                try {
+                    const userData = JSON.parse(user);
+                    log(`👤 User found: ${userData.name} (${userData.role})`, 'success');
+                } catch (e) {
+                    log('❌ Invalid user data in storage', 'error');
+                }
+            } else {
+                log('❌ No user data found', 'error');
+            }
+            
+            // Check session storage too
+            const sessionToken = sessionStorage.getItem('token');
+            if (sessionToken) {
+                log(`🔑 Session token found: ${sessionToken.substring(0, 20)}...`, 'success');
+            }
+        }
+    </script>
+</body>
+</html>

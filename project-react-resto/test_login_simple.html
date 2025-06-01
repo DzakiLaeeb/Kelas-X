@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Login Test</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .result-box {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 10px 0;
+            font-family: monospace;
+            white-space: pre-wrap;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .success { background: #d4edda; border-color: #c3e6cb; }
+        .error { background: #f8d7da; border-color: #f5c6cb; }
+    </style>
+</head>
+<body class="bg-light">
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow">
+                    <div class="card-header bg-primary text-white">
+                        <h4 class="mb-0">🔍 Simple Login Test</h4>
+                    </div>
+                    <div class="card-body">
+                        
+                        <!-- Quick Fix Buttons -->
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <a href="fix_login.php" class="btn btn-warning w-100 mb-2">
+                                    🔧 Fix Database & Users
+                                </a>
+                            </div>
+                            <div class="col-md-6">
+                                <a href="api/setup_users_table.php" class="btn btn-info w-100 mb-2">
+                                    🗄️ Setup Users Table
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <!-- Login Test Form -->
+                        <form id="loginForm">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Username:</label>
+                                        <select class="form-select" id="username">
+                                            <option value="admin">admin (Admin)</option>
+                                            <option value="kasir">kasir (Kasir)</option>
+                                            <option value="koki">koki (Koki)</option>
+                                            <option value="user">user (User)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Password:</label>
+                                        <input type="password" class="form-control" id="password" value="admin123">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <button type="button" class="btn btn-secondary" onclick="updatePassword()">
+                                    Update Password
+                                </button>
+                                <button type="submit" class="btn btn-primary">
+                                    🔐 Test Login
+                                </button>
+                            </div>
+                        </form>
+                        
+                        <!-- Results -->
+                        <div class="mt-4">
+                            <h6>📊 Test Results:</h6>
+                            <div id="results" class="result-box">
+                                Click "Test Login" to see results...
+                            </div>
+                        </div>
+                        
+                        <!-- Quick Links -->
+                        <div class="mt-4">
+                            <h6>🔗 Quick Links:</h6>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <a href="http://localhost:5173/login" class="btn btn-outline-primary btn-sm w-100" target="_blank">
+                                        React Login
+                                    </a>
+                                </div>
+                                <div class="col-md-3">
+                                    <a href="http://localhost:5173/register" class="btn btn-outline-success btn-sm w-100" target="_blank">
+                                        React Register
+                                    </a>
+                                </div>
+                                <div class="col-md-3">
+                                    <a href="api/login.php" class="btn btn-outline-info btn-sm w-100" target="_blank">
+                                        Login API
+                                    </a>
+                                </div>
+                                <div class="col-md-3">
+                                    <a href="view_customers.php" class="btn btn-outline-secondary btn-sm w-100" target="_blank">
+                                        View Customers
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Default Credentials -->
+                        <div class="mt-4 p-3 bg-info text-white rounded">
+                            <h6>🔑 Default Credentials:</h6>
+                            <div class="row">
+                                <div class="col-6">
+                                    <small>
+                                        <strong>Admin:</strong> admin / admin123<br>
+                                        <strong>Kasir:</strong> kasir / kasir123
+                                    </small>
+                                </div>
+                                <div class="col-6">
+                                    <small>
+                                        <strong>Koki:</strong> koki / koki123<br>
+                                        <strong>User:</strong> user / user123
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Update password based on selected username
+        function updatePassword() {
+            const username = document.getElementById('username').value;
+            const passwordField = document.getElementById('password');
+            
+            const defaultPasswords = {
+                'admin': 'admin123',
+                'kasir': 'kasir123',
+                'koki': 'koki123',
+                'user': 'user123'
+            };
+            
+            passwordField.value = defaultPasswords[username] || 'admin123';
+        }
+        
+        // Auto-update password when username changes
+        document.getElementById('username').addEventListener('change', updatePassword);
+        
+        // Handle login form submission
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const resultsDiv = document.getElementById('results');
+            
+            resultsDiv.textContent = 'Testing login...';
+            resultsDiv.className = 'result-box';
+            
+            try {
+                // Test 1: Check if API endpoint exists
+                resultsDiv.textContent += '\n🔍 Step 1: Testing API endpoint...';
+                
+                const response = await fetch('/api/login.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        username: username,
+                        password: password
+                    })
+                });
+                
+                resultsDiv.textContent += '\n✅ API endpoint accessible';
+                resultsDiv.textContent += '\n📊 HTTP Status: ' + response.status;
+                
+                const data = await response.json();
+                resultsDiv.textContent += '\n📦 Response received';
+                
+                if (data.success) {
+                    resultsDiv.textContent += '\n\n🎉 LOGIN SUCCESSFUL!';
+                    resultsDiv.textContent += '\n👤 User: ' + data.data.user.name;
+                    resultsDiv.textContent += '\n🏷️ Role: ' + data.data.user.role;
+                    resultsDiv.textContent += '\n🔑 Token: ' + data.data.token.substring(0, 20) + '...';
+                    resultsDiv.className = 'result-box success';
+                } else {
+                    resultsDiv.textContent += '\n\n❌ LOGIN FAILED!';
+                    resultsDiv.textContent += '\n💬 Message: ' + data.message;
+                    resultsDiv.className = 'result-box error';
+                }
+                
+                resultsDiv.textContent += '\n\n📋 Full Response:';
+                resultsDiv.textContent += '\n' + JSON.stringify(data, null, 2);
+                
+            } catch (error) {
+                resultsDiv.textContent += '\n\n💥 ERROR OCCURRED!';
+                resultsDiv.textContent += '\n❌ Error: ' + error.message;
+                resultsDiv.textContent += '\n\n🔧 Possible solutions:';
+                resultsDiv.textContent += '\n1. Check if XAMPP is running';
+                resultsDiv.textContent += '\n2. Verify database connection';
+                resultsDiv.textContent += '\n3. Run fix_login.php';
+                resultsDiv.className = 'result-box error';
+            }
+        });
+        
+        // Initialize with admin credentials
+        updatePassword();
+    </script>
+</body>
+</html>
